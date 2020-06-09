@@ -1,15 +1,120 @@
 node{
    stage('SCM Checkout'){
-       git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Vedika-Service.git'
+       git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Service-java.git'
    }
    stage('gradle Package'){
      def gradleHome = tool name: 'gradle', type: 'gradle'
      def gradleCMD = "${gradleHome}/bin/gradle"
      sh "${gradleCMD} clean build"
-     } 
-     stage('playbook Execution'){   
-     sh label: '', script: '''cd /opt/scripts
-     sudo ansible-playbook main.yaml'''
-     }
+   } 
    
-   }
+   stage('Creating bash script to run jar'){   
+     sh label: '', script: '''cd /usr/local/bin/
+echo " #!/bin/sh 
+SERVICE_NAME=vedikaservice
+PATH_TO_JAR=/var/lib/jenkins/workspace/service/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
+PID_PATH_NAME=/tmp/vedikaService-pid 
+case $1 in 
+start)
+       echo "Starting $SERVICE_NAME ..."
+  if [ ! -f $PID_PATH_NAME ]; then 
+       nohup java -jar $PATH_TO_JAR /tmp 2>> /dev/null >>/dev/null &      
+                   echo $! > $PID_PATH_NAME  
+       echo "$SERVICE_NAME started ..."         
+  else 
+       echo "$SERVICE_NAME is already running ..."
+  fi
+;;
+stop)
+  if [ -f $PID_PATH_NAME ]; then
+         PID=$(cat $PID_PATH_NAME);
+         echo "$SERVICE_NAME stoping ..." 
+         kill $PID;         
+         echo "$SERVICE_NAME stopped ..." 
+         rm $PID_PATH_NAME       
+  else          
+         echo "$SERVICE_NAME is not running ..."   
+  fi    
+;;    
+restart)  
+  if [ -f $PID_PATH_NAME ]; then 
+      PID=$(cat $PID_PATH_NAME);    
+      echo "$SERVICE_NAME stopping ..."; 
+      kill $PID;           
+      echo "$SERVICE_NAME stopped ...";  
+      rm $PID_PATH_NAME     
+      echo "$SERVICE_NAME starting ..."  
+      nohup java -jar $PATH_TO_JAR /tmp 2>> /dev/null >> /dev/null &            
+      echo $! > $PID_PATH_NAME  
+      echo "$SERVICE_NAME started ..."    
+  else           
+      echo "$SERVICE_NAME is not running ..."    
+     fi     ;;
+ esac " >vedikaservice.sh'''   
+      }
+    stage('Creating jar as a service'){ 
+	 sh label: '', script: '''echo " [Unit]
+ Description = Java Service
+ After network.target = Service_Name.service
+[Service]
+ Type = forking
+ Restart=always
+ RestartSec=1
+ SuccessExitStatus=143 
+ ExecStart = /usr/local/bin/vedikaservice.sh start
+ ExecStop = /usr/local/bin/vedikaservice.sh stop
+ ExecReload = /usr/local/bin/vedikaservice.sh reload
+[Install]
+ WantedBy=multi-user.target " >vedikaservice.service'''
+	}
+	
+	stage('execute permission to script'){
+	sh label: '', script: 'sudo chmod +x /usr/local/bin/vedikaservice.sh'
+	}
+	
+	stage('Service to enable and reload'){
+	sh label: '', script: '''sudo systemctl daemon-reload
+    sudo systemctl enable vedikaservice'''
+	}
+	
+	stage('playbook execution'){
+	sh label: '', script: '''cd /opt/
+echo " ---
+-
+  hosts: all
+  tasks:
+    -
+      apt:
+        update_cache: true
+      become: true
+      name: "Update APT package manager repositories cache"
+    -
+      apt:
+        name: "{{ item }}"
+        state: present
+      become: true
+      name: "Install OpenJDK Java"
+      with_items: openjdk-8-jdk
+    -
+      copy:
+        src:  /var/lib/jenkins/workspace/service/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
+        dest: /home/ubuntu/
+	-
+      copy:
+        src: /usr/local/bin/vedikaservice.sh
+        dest: /usr/local/bin/
+	-
+      copy:
+        src: /etc/systemd/system/vedikaservice.service
+        dest: /etc/systemd/system/
+    -
+       shell: sudo chmod +x /usr/local/bin/vedikaservice.sh   
+	-
+       shell: sudo systemctl daemon-reload  
+    -
+       shell: sudo systemctl enable vedikaservice 
+	-
+       shell: sudo systemctl start vedikaservice " > service.yaml'''
+	}
+	
+}
