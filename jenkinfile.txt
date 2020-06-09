@@ -30,7 +30,7 @@ node{
    }
    stage('Creating bash script to run jar'){   
      sh label: '', script: '''cd /usr/local/bin/
-echo " #!/bin/sh 
+sudo echo " #!/bin/sh 
 SERVICE_NAME=vedikaservice
 PATH_TO_JAR=/var/lib/jenkins/workspace/service/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
 PID_PATH_NAME=/tmp/vedikaService-pid 
@@ -73,7 +73,7 @@ restart)
  esac " >vedikaservice.sh'''   
       }
     stage('Creating jar as a service'){ 
-	 sh label: '', script: '''echo " [Unit]
+	 sh label: '', script: '''sudo echo " [Unit]
  Description = Java Service
  After network.target = Service_Name.service
 [Service]
@@ -99,7 +99,7 @@ restart)
 	
 	stage('playbook execution'){
 	sh label: '', script: '''cd /opt/
-echo " ---
+sudo echo " ---
 -
   hosts: all
   tasks:
