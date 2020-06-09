@@ -133,12 +133,12 @@ sudo echo "---
        shell: sudo systemctl enable vedikaservice 
 	-
        shell: sudo systemctl start vedikaservice" > service.yaml'''
-	}
+}
+       
        stage('playbook excution'){
        cd /opt/
-       ansible-playbook service.yaml
+       sudo ansible-playbook service.yaml
        }
-
 }
    
    
