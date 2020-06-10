@@ -134,7 +134,7 @@ sudo echo "---
        shell: sudo systemctl daemon-reload  
     -
        shell: sudo systemctl enable vedikaservice 
-	-
+    -
        shell: sudo systemctl start vedikaservice" > service.yaml'''
 }
        sh label: '', script: '''cd /opt
