@@ -111,9 +111,9 @@ sudo echo "---
       name: "Update APT package manager repositories cache"
     -
       apt:
-        state: present
       become: true
       name: "Install OpenJDK Java"
+      action: apt name=openjdk-8-jdk  state=present
     -
       copy:
         src:  /var/lib/jenkins/workspace/service/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
