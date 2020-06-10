@@ -33,7 +33,7 @@ node{
 cat >vedikaservice.sh <<'EOF'
 SERVICE_NAME=vedikaservice
 PATH_TO_JAR=/home/ubuntu/functionhall-service-0.0.1-SNAPSHOT.jar
-PID_PATH_NAME=/tmp/vedikaService-pid 
+PID_PATH_NAME=/tmp/vedikaservice-pid 
 case $1 in 
 start)
        echo "Starting $SERVICE_NAME ..."
