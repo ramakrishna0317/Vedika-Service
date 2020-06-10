@@ -32,7 +32,7 @@ node{
      sh label: '', script: '''cd /usr/local/bin
 cat >vedikaservice.sh <<'EOF'
 SERVICE_NAME=vedikaservice
-PATH_TO_JAR=/var/lib/jenkins/workspace/service/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
+PATH_TO_JAR=/home/ubuntu/functionhall-service-0.0.1-SNAPSHOT.jar
 PID_PATH_NAME=/tmp/vedikaService-pid 
 case $1 in 
 start)
