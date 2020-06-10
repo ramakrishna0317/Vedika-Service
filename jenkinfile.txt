@@ -137,7 +137,8 @@ sudo echo "---
 	-
        shell: sudo systemctl start vedikaservice" > service.yaml'''
 }
-       
+       sh label: '', script: '''cd /opt
+       sudo ansible-playbook service.yaml'''
        
 }
    
