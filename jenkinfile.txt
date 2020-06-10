@@ -102,7 +102,7 @@ cat >vedikaservice.service <<'EOF'
 	sh label: '', script: '''cd /opt/
 sudo echo "---
 -
-  hosts: all
+  hosts: 13.233.94.247
   tasks:
     -
       apt:
