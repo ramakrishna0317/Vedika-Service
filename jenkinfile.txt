@@ -29,7 +29,7 @@ node{
    sudo ansible --version'''
    }
    stage('Creating bash script to run jar'){   
-     sh label: '', script: '''sudo cd /usr/local/bin/
+     sh label: '', script: '''cd /usr/local/bin/
 sudo echo "SERVICE_NAME=vedikaservice
 PATH_TO_JAR=/var/lib/jenkins/workspace/service/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
 PID_PATH_NAME=/tmp/vedikaService-pid 
@@ -72,7 +72,8 @@ restart)
  esac" > vedikaservice.sh'''   
       }
     stage('Creating jar as a service'){ 
-	 sh label: '', script: '''sudo echo "[Unit]
+	 sh label: '', script: '''cd /etc/systemd/system/
+ sudo echo "[Unit]
  Description = Java Service
  After network.target = Service_Name.service
 [Service]
