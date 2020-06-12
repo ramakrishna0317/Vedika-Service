@@ -1,10 +1,4 @@
-node{
-   stage('SCM Checkout'){
-       git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Vedika-Service.git'
-   }
-   
-
-   echo this script done by shiva
+sh label: '', script: '''echo this script done by shiva
    echo Installing software-properties-common packages then add the java OpenJDK PPA repository.
    sudo apt install software-properties-common apt-transport-https -y
    sudo add-apt-repository ppa:openjdk-r/ppa -y
@@ -16,18 +10,16 @@ node{
    sudo apt-get update -y
    sudo apt-get upgrade -y
    echo Ansible PPA to your server
-   sudo apt-add-repository ppa:ansible/ansible \' \'
+   sudo apt-add-repository ppa:ansible/ansible \\\' \\\'
    echo update the repository and install Ansible
    sudo apt-get update -y
    sudo apt-get install ansible -y
    echo Ansible version
-   sudo ansible --version
+   sudo ansible --version'''
    
-
-
-   sudo chmod 777 /opt/
+   sh label: '', script: ''' sudo chmod 777 /opt/
    cd /opt
-   cat >angular.sh <<'EOF'
+   cat >angular.sh <<\'EOF\'
    sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
    sudo curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
    echo Install Node.js 12 on Ubuntu / Debian / Linux Mint
@@ -43,23 +35,17 @@ node{
    sudo git clone https://github.com/shivastunts0327/vedikaUI-angular.git
    cd vedikaUI-angular
    sudo npm install
-   ng serve --host 0.0.0.0
-  
-
-
-   sudo chmod 777 /usr/
+   ng serve --host 0.0.0.0'''
+   
+   
+   sh label: '', script: '''sudo chmod 777 /usr/
    sudo chmod 777 /usr/local/
    sudo chmod 777 /usr/local/bin/
+   sudo chmod 777 /etc/systemd/
+   sudo chmod 777 /etc/systemd/system
+   cd /usr/local/bin'''
    
-
-
-    sudo chmod 777 /etc/systemd/
-    sudo chmod 777 /etc/systemd/system
-   
-
-
-     cd /usr/local/bin
-     cat >vedikaui.sh <<'EOF'
+   sh label: '', script: '''cat >vedikaui.sh <<\'EOF\'
 SERVICE_NAME=vedikaui
 PATH_TO_SH=/opt/angular.sh
 PID_PATH_NAME=/tmp/vedikaui-pid
@@ -99,12 +85,11 @@ restart)
   else
       echo "$SERVICE_NAME is not running ..."
      fi     ;;
- esac
+ esac'''
+   
+   sh label: '', script: 'cd /etc/systemd/system/'
  
-
-
-    cd /etc/systemd/system/
-    cat >vedikaui.service <<'EOF'
+   sh label: '', script: '''cat >vedikaui.service <<\'EOF\'
 [Unit]
  Description = Angular Service
  After network.target = vedikaui.service
@@ -117,12 +102,12 @@ restart)
  ExecStop = /usr/local/bin/vedikaui.sh stop
  ExecReload = /usr/local/bin/vedikaui.sh reload
 [Install]
- WantedBy=multi-user.target
-
-
-
-cd /opt/
-cat >vedikaui.yaml <<'EOF'
+ WantedBy=multi-user.target''' 
+ 
+ 
+   sh label: '', script: 'cd /opt/'
+   
+   sh label: '', script: '''cat >vedikaui.yaml <<\'EOF\'
 ---
 - 
   hosts: 13.232.236.250
@@ -148,14 +133,8 @@ cat >vedikaui.yaml <<'EOF'
     -
        shell: sudo systemctl enable vedikaui 
     -
-       shell: sudo systemctl start vedikaui
-	
-	
-
-       cd /opt
-       sudo ansible-playbook vedikaui.yaml
-       
-       }
- 
-	
-
+       shell: sudo systemctl start vedikaui'''
+	   
+	   
+	 sh label: '', script: '''cd /opt
+         sudo ansible-playbook vedikaui.yaml'''
