@@ -4,7 +4,6 @@ node{
    }
    
 stage('ansible installing'){
-  
    echo this script done by shiva
    echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
    sudo apt install software-properties-common apt-transport-https -y
@@ -22,7 +21,7 @@ stage('ansible installing'){
    sudo apt-get update -y
    sudo apt-get install ansible -y
    echo Ansible version
-   sudo ansible --version'''
+   sudo ansible --version
    }
 
 stage('angular file saving'){
@@ -44,18 +43,18 @@ stage('angular file saving'){
    sudo git clone https://github.com/shivastunts0327/vedikaUI-angular.git
    cd vedikaUI-angular
    sudo npm install
-   ng serve --host 0.0.0.0'''
+   ng serve --host 0.0.0.0
   }
 
 stage('permissions to dir'){
    sudo chmod 777 /usr/
    sudo chmod 777 /usr/local/
-   sudo chmod 777 /usr/local/bin/'''
+   sudo chmod 777 /usr/local/bin/
    }
 
 stage('permissions to dir systemd init'){
     sudo chmod 777 /etc/systemd/
-    sudo chmod 777 /etc/systemd/system'''
+    sudo chmod 777 /etc/systemd/system
    }
 
 stage('Creating bash script to run angular'){   
@@ -154,7 +153,7 @@ cat >vedikaui.yaml <<'EOF'
 	
 stage('vedikaui playbook running'){
        cd /opt
-       sudo ansible-playbook vedikaui.yaml'''
+       sudo ansible-playbook vedikaui.yaml
        }
 	
 	}
