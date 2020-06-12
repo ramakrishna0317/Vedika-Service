@@ -22,26 +22,26 @@ stage('ansible installing'){
    }
 
 stage('angular file saving'){
-sh label: '', script: '''sudo chmod 777 /opt/
-cd /opt
-cat >angular.sh <<'EOF'
-sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
-sudo curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-echo Install Node.js 12 on Ubuntu / Debian / Linux Mint
-sudo apt -y install nodejs
-sudo apt -y  install gcc g++ make
-echo Confirm Node.js 12 installation by checking the version installed.
-sudo node --version
-sudo npm --version 
-echo Install Angular on Ubuntu 18.04
-sudo npm install -g @angular/cli@9   
-cd /home/ubuntu
-sudo git init
-sudo git clone https://github.com/shivastunts0327/vedikaUI-angular.git
-cd vedikaUI-angular
-sudo npm install
-sudo ng serve --host 0.0.0.0'''
-}
+   sh label: '', script: '''sudo chmod 777 /opt/
+   cd /opt
+   cat >angular.sh <<'EOF'
+   sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+   sudo curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+   echo Install Node.js 12 on Ubuntu / Debian / Linux Mint
+   sudo apt -y install nodejs
+   sudo apt -y  install gcc g++ make
+   echo Confirm Node.js 12 installation by checking the version installed.
+   sudo node --version
+   sudo npm --version 
+   echo Install Angular on Ubuntu 18.04
+   sudo npm install -g @angular/cli@9   
+   cd /home/ubuntu
+   sudo git init
+   sudo git clone https://github.com/shivastunts0327/vedikaUI-angular.git
+   cd vedikaUI-angular
+   sudo npm install
+   ng serve --host 0.0.0.0'''
+  }
 
 stage('permissions to dir'){
    sh label: '', script: '''sudo chmod 777 /usr/
@@ -98,6 +98,7 @@ restart)
      fi     ;;
  esac
  }
+
 stage('Creating angular as a service'){ 
     sh label: '', script: '''cd /etc/systemd/system/
     cat >vedikaui.service <<'EOF'
@@ -127,11 +128,11 @@ cat >vedikaui.yaml <<'EOF'
       copy:
         src: /opt/angularui.sh
         dest: /opt/
-	-
+    -
       copy:
         src: /usr/local/bin/vedikaui.sh
         dest: /usr/local/bin
-	-
+    -
       copy:
         src: /etc/systemd/system/vedikaui.service
         dest: /etc/systemd/system/
@@ -145,10 +146,12 @@ cat >vedikaui.yaml <<'EOF'
        shell: sudo systemctl enable vedikaui 
     -
        shell: sudo systemctl start vedikaui
+	
 	}
 	
 	   stage('vedikaui playbook running'){
 	   sh label: '', script: '''cd /opt
        sudo ansible-playbook vedikaui.yaml'''
        }
+	
 	}
