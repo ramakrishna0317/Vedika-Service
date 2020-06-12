@@ -1,6 +1,6 @@
 node{
    stage('SCM Checkout'){
-       git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Vedika-Service.git'
+       git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Service-java.git'
    }
    stage('gradle Package'){
      def gradleHome = tool name: 'gradle', type: 'gradle'
@@ -113,7 +113,7 @@ cat >vedikaservice.service <<'EOF'
 	sh label: '', script: '''cd /opt/
 sudo echo "---
 -
-  hosts: 13.233.94.247
+  hosts: 13.232.236.250
   tasks:
     -
       apt:
