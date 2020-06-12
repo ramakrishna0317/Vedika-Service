@@ -4,7 +4,7 @@ node{
    }
    
 stage('ansible installing'){
-   sh label: '', script: '''#!/bin/bash
+   #!/bin/bash
    echo this script done by shiva
    echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
    sudo apt install software-properties-common apt-transport-https -y
@@ -26,7 +26,7 @@ stage('ansible installing'){
    }
 
 stage('angular file saving'){
-   sh label: '', script: '''sudo chmod 777 /opt/
+   sudo chmod 777 /opt/
    cd /opt
    cat >angular.sh <<'EOF'
    sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
@@ -48,18 +48,18 @@ stage('angular file saving'){
   }
 
 stage('permissions to dir'){
-   sh label: '', script: '''sudo chmod 777 /usr/
+   sudo chmod 777 /usr/
    sudo chmod 777 /usr/local/
    sudo chmod 777 /usr/local/bin/'''
    }
 
 stage('permissions to dir systemd init'){
-    sh label: '', script: '''sudo chmod 777 /etc/systemd/
+    sudo chmod 777 /etc/systemd/
     sudo chmod 777 /etc/systemd/system'''
    }
 
 stage('Creating bash script to run angular'){   
-     sh label: '', script: '''cd /usr/local/bin
+     cd /usr/local/bin
      cat >vedikaui.sh <<'EOF'
 SERVICE_NAME=vedikaui
 PATH_TO_SH=/opt/angular.sh
@@ -122,7 +122,7 @@ stage('Creating angular as a service'){
 }
 
 stage('angularui playbook creation'){
-sh label: '', script: '''cd /opt/
+cd /opt/
 cat >vedikaui.yaml <<'EOF'
 ---
 - 
@@ -152,8 +152,9 @@ cat >vedikaui.yaml <<'EOF'
        shell: sudo systemctl start vedikaui
 	}
 	
-	   stage('vedikaui playbook running'){
-	   sh label: '', script: '''cd /opt
+stage('vedikaui playbook running'){
+       cd /opt
        sudo ansible-playbook vedikaui.yaml'''
        }
+	
 	}
