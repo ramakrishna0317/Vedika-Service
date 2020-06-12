@@ -4,7 +4,7 @@ node{
    }
    
 stage('ansible installing'){
-   #!/bin/bash
+  
    echo this script done by shiva
    echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
    sudo apt install software-properties-common apt-transport-https -y
