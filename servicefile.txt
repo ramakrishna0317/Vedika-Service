@@ -78,8 +78,8 @@ restart)
   esac'''   
       }
       stage('permissions to dir systemd init'){
-      sh label: '', script: '''sudo chmod 777 /etc/system/
-      sudo chmod 777 /etc/system/systemd/'''
+      sh label: '', script: '''sudo chmod 777 /etc/systemd/
+      sudo chmod 777 /etc/systemd/system/'''
       }
     stage('Creating jar as a service'){ 
 sh label: '', script: '''cd /etc/systemd/system/
