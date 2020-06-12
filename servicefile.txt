@@ -86,7 +86,7 @@ sh label: '', script: '''cd /etc/systemd/system/
 cat >vedikaservice.service <<'EOF'
 [Unit]
  Description = Java Service
- After network.target = Service_Name.service
+ After network.target = vedikaservice.service
 [Service]
  Type = forking
  Restart=always
