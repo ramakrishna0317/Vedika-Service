@@ -3,7 +3,7 @@ node{
        git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Vedika-Service.git'
    }
    
-stage('ansible installing'){
+
    echo this script done by shiva
    echo Installing software-properties-common packages then add the java OpenJDK PPA repository.
    sudo apt install software-properties-common apt-transport-https -y
@@ -22,9 +22,9 @@ stage('ansible installing'){
    sudo apt-get install ansible -y
    echo Ansible version
    sudo ansible --version
-   }
+   
 
-stage('angular file saving'){
+
    sudo chmod 777 /opt/
    cd /opt
    cat >angular.sh <<'EOF'
@@ -44,20 +44,20 @@ stage('angular file saving'){
    cd vedikaUI-angular
    sudo npm install
    ng serve --host 0.0.0.0
-  }
+  
 
-stage('permissions to dir'){
+
    sudo chmod 777 /usr/
    sudo chmod 777 /usr/local/
    sudo chmod 777 /usr/local/bin/
-   }
+   
 
-stage('permissions to dir systemd init'){
+
     sudo chmod 777 /etc/systemd/
     sudo chmod 777 /etc/systemd/system
-   }
+   
 
-stage('Creating bash script to run angular'){   
+
      cd /usr/local/bin
      cat >vedikaui.sh <<'EOF'
 SERVICE_NAME=vedikaui
@@ -100,9 +100,9 @@ restart)
       echo "$SERVICE_NAME is not running ..."
      fi     ;;
  esac
- }
+ 
 
-stage('Creating angular as a service'){ 
+
     cd /etc/systemd/system/
     cat >vedikaui.service <<'EOF'
 [Unit]
@@ -118,9 +118,9 @@ stage('Creating angular as a service'){
  ExecReload = /usr/local/bin/vedikaui.sh reload
 [Install]
  WantedBy=multi-user.target
-}
 
-stage('angularui playbook creation'){
+
+
 cd /opt/
 cat >vedikaui.yaml <<'EOF'
 ---
@@ -149,11 +149,13 @@ cat >vedikaui.yaml <<'EOF'
        shell: sudo systemctl enable vedikaui 
     -
        shell: sudo systemctl start vedikaui
-	}
 	
-stage('vedikaui playbook running'){
+	
+
        cd /opt
        sudo ansible-playbook vedikaui.yaml
+       
        }
+ 
 	
-	}
+
