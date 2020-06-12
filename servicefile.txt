@@ -128,7 +128,7 @@ sudo echo "---
       with_items: openjdk-8-jdk  
     -
       copy:
-        src:  /var/lib/jenkins/workspace/service/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
+        src:  /var/lib/jenkins/workspace/service-ansible-pipeline/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
         dest: /home/ubuntu/
     -
       copy:
