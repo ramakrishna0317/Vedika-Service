@@ -1,6 +1,6 @@
+node{
 
 sh label: '', script: '''echo this script done by shiva
-node{
 sh label: '', script: '''echo this script done by shiva
    echo Installing software-properties-common packages then add the java OpenJDK PPA repository.
    sudo apt install software-properties-common apt-transport-https -y
@@ -280,3 +280,4 @@ restart)
 	   
 	 sh label: '', script: '''cd /opt
          sudo ansible-playbook vedikaui.yaml'''
+}
