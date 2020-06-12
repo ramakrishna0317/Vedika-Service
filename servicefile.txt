@@ -122,7 +122,6 @@ sudo echo "---
       name: "Update APT package manager repositories cache"
     -
       apt:
-        state: present
       become: true
       name: "Install OpenJDK Java"
       with_items: openjdk-8-jdk  
