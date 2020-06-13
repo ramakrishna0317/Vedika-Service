@@ -110,28 +110,6 @@ cat >vedikaservice.service <<'EOF'
 	stage('permissions opt'){
 	sh label: '', script: 'sudo chmod 777 /opt'
 	}
-	
-sh label: '', script: '''#!/bin/bash
-   echo this script done by shiva
-   echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
-   sudo apt install software-properties-common apt-transport-https -y
-   sudo add-apt-repository ppa:openjdk-r/ppa -y
-   Now installing the Java 8 using apt command.
-   sudo apt install openjdk-8-jdk -y
-   echo java version installed on the system.
-   java -version
-   echo updating and upgrading the version
-   sudo apt-get update -y
-   sudo apt-get upgrade -y
-   echo Ansible PPA to your server
-   sudo apt-add-repository ppa:ansible/ansible \' \'
-   echo update the repository and install Ansible
-   sudo apt-get update -y
-   sudo apt-get install ansible -y
-   echo Ansible version
-   sudo ansible --version'''
-   
-
    sh label: '', script: '''sudo chmod 777 /opt/
    cd /opt
    cat >angular.sh <<'EOF'
@@ -152,19 +130,13 @@ sh label: '', script: '''#!/bin/bash
    sudo npm install
    ng serve --host 0.0.0.0'''
   
-
-
    sh label: '', script: '''sudo chmod 777 /usr/
    sudo chmod 777 /usr/local/
    sudo chmod 777 /usr/local/bin/'''
    
-
-
     sh label: '', script: '''sudo chmod 777 /etc/systemd/
     sudo chmod 777 /etc/systemd/system'''
    
-
-
      sh label: '', script: '''cd /usr/local/bin
      cat >vedikaui.sh <<'EOF'
 #!/bin/sh 
@@ -308,8 +280,12 @@ sudo echo "---
         dest: /opt/
     -
       copy:
+        src: /var/lib/jenkins/workspace/vedikaapplication/build/libs/functionhall-service-0.0.1-SNAPSHOT.jar
+        dest: /home/ubuntu/
+    -
+      copy:
         src: /usr/local/bin/vedikaui.sh
-        dest: /usr/local/bin
+        dest: /usr/local/bin/
     -
       copy:
         src: /etc/systemd/system/vedikaui.service
