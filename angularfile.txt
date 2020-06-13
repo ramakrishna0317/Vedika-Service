@@ -127,17 +127,17 @@ sudo echo "---
       copy:
         src: /opt/angularui.sh
         dest: /opt/
-	-
+    -
       copy:
         src: /usr/local/bin/vedikaui.sh
         dest: /usr/local/bin
-	-
+    -
       copy:
         src: /etc/systemd/system/vedikaui.service
         dest: /etc/systemd/system/
     -
        shell: chmod +x /opt/angularui.sh
-	-
+    -
        shell: chmod +x /usr/local/bin/vedikaui.sh
     -
        shell: sudo systemctl daemon-reload  
