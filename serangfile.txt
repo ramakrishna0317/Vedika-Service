@@ -265,7 +265,7 @@ restart)
 [Install]
  WantedBy=multi-user.target
 '''
-	sh label: '', script: '''sudo chmod +x /opt/vedikaserang/
+	sh label: '', script: '''sudo chmod +x /opt/vedikaserang.sh
     sudo chmod +x /usr/local/bin/vedika.sh
     sudo chmod +x /systemd/system/vedika.sh'''
 	stage('playbook creation'){
