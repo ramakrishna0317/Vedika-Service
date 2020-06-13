@@ -98,7 +98,7 @@ restart)
   else
       echo "$SERVICE_NAME is not running ..."
      fi     ;;
- esac
+ esac'''
  
  }
  
