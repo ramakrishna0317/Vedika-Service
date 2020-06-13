@@ -3,6 +3,33 @@ node{
        git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Vedika-Service.git'
    }
    
+stage('ansible installing'){
+   sh label: '', script: '''sudo chmod 777 /home
+   cd /home
+   cat >ansible.sh <<'EOF'
+   #!/bin/bash
+   echo this script done by shiva
+   echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
+   sudo apt install software-properties-common apt-transport-https -y
+   sudo add-apt-repository ppa:openjdk-r/ppa -y
+   Now installing the Java 8 using apt command.
+   sudo apt install openjdk-8-jdk -y
+   echo java version installed on the system.
+   java -version
+   echo updating and upgrading the version
+   sudo apt-get update -y
+   sudo apt-get upgrade -y
+   echo Ansible PPA to your server
+   sudo apt-add-repository ppa:ansible/ansible \' \'
+   echo update the repository and install Ansible
+   sudo apt-get update -y
+   sudo apt-get install ansible -y
+   echo Ansible version
+   sudo ansible --version'''
+   }
+   sh label: '', script: '''cd /home
+   sudo sh ansible.sh'''
+
 stage('angular file saving'){
    sh label: '', script: '''sudo chmod 777 /opt/
    cd /opt
