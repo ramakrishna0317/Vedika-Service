@@ -1,9 +1,13 @@
 node{
    stage('SCM Checkout'){
-       git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Vedika-Service.git'
+       git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Service-java.git'
    }
-   
-stage('ansible installing'){
+   stage('gradle Package'){
+     def gradleHome = tool name: 'gradle', type: 'gradle'
+     def gradleCMD = "${gradleHome}/bin/gradle"
+     sh "${gradleCMD} clean build"
+   } 
+   stage('ansible installing'){
    sh label: '', script: '''#!/bin/bash
    echo this script done by shiva
    echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
@@ -24,7 +28,6 @@ stage('ansible installing'){
    echo Ansible version
    sudo ansible --version'''
    }
-
 stage('angular file saving'){
    sh label: '', script: '''sudo chmod 777 /opt/
    cd /opt
