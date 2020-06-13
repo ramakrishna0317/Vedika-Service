@@ -204,9 +204,8 @@ restart)
     service vedikaservice start
     service vedikaui start'''
 	
-	sh label: '', script: 'cd /usr/local/bin/'
-	
-	sh label: '', script: '''cat >vedika.sh <<\'EOF\'
+sh label: '', script: '''cd /usr/local/bin/
+cat >vedika.sh <<\'EOF\'
 #!/bin/sh 
 SERVICE_NAME=vedika 
 PATH_TO_SH=/opt/vedikaserang.sh
@@ -248,6 +247,7 @@ restart)
       echo "$SERVICE_NAME is not running ..."    
      fi     ;;
  esac'''
+	
 	
 	sh label: '', script: 'cd /etc/systemd/system'
 	sh label: '', script: '''cat >vedika.service<<\'EOF\'
