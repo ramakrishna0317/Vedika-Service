@@ -318,7 +318,7 @@ sudo echo "---
        shell: chmod +x /opt/angular.sh
     -
        shell: chmod +x /usr/local/bin/vedikaui.sh
-	-
+    -
        shell: chmod +x /usr/local/bin/vedika.sh
     -
        shell: sudo systemctl daemon-reload  
