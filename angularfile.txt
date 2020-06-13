@@ -1,16 +1,5 @@
 node{
 sh label: '', script: '''echo this script done by shiva
-   echo updating and upgrading the version
-   sudo apt-get update -y
-   sudo apt-get upgrade -y
-   echo Ansible PPA to your server
-   sudo apt-add-repository ppa:ansible/ansible ' '
-   echo update the repository and install Ansible
-   sudo apt-get update -y
-   sudo apt-get install ansible -y
-   echo Ansible version
-   sudo ansible --version'''
-   
    sh label: '', script: ''' sudo chmod 777 /opt/
    cd /opt
    cat >angular.sh <<\'EOF\'
