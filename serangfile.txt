@@ -248,9 +248,8 @@ restart)
      fi     ;;
  esac'''
 	
-	
-	sh label: '', script: 'cd /etc/systemd/system'
-	sh label: '', script: '''cat >vedika.service<<\'EOF\'
+sh label: '', script: '''cd /etc/systemd/system
+cat >vedika.service<<\'EOF\'
 [Unit]
  Description = AngSer Service
  After network.target = vedika.service
