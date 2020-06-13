@@ -118,7 +118,7 @@ restart)
 
 
 
-sh label: '', script: '''cd /opt/
+sh label: '', script: '''cd /opt/'''
 cat >vedikaui.yaml <<'EOF'
 ---
 - 
@@ -145,7 +145,7 @@ cat >vedikaui.yaml <<'EOF'
     -
        shell: sudo systemctl enable vedikaui 
     -
-       shell: sudo systemctl start vedikaui'''
+       shell: sudo systemctl start vedikaui
 	
 	
 	   
