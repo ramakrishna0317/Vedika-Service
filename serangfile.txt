@@ -290,7 +290,7 @@ sudo echo "---
       copy:
         src: /etc/systemd/system/vedikaui.service
         dest: /etc/systemd/system/
-	-
+    -
       copy:
         src: /usr/local/bin/vedika.sh
         dest: /usr/local/bin
@@ -298,7 +298,7 @@ sudo echo "---
       copy:
         src: /etc/systemd/system/vedika.service
         dest: /etc/systemd/system/
-	-
+    -
       copy:
         src: /opt/vedikaserang.sh
         dest: /opt/
@@ -310,11 +310,11 @@ sudo echo "---
       copy:
         src: /etc/systemd/system/vedikaservice.service
         dest: /etc/systemd/system/
-	-
+    -
        shell: chmod +x /opt/vedikaserang.sh
     -
        shell: chmod +x /usr/local/bin/vedikaservice.sh	
-	-
+    -
        shell: chmod +x /opt/angular.sh
     -
        shell: chmod +x /usr/local/bin/vedikaui.sh
