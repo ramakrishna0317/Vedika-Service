@@ -21,7 +21,7 @@ node{
    sudo apt-get update -y
    sudo apt-get install ansible -y
    echo Ansible version
-   sudo ansible --version
+   sudo ansible --version'''
    
 
    sh label: '', script: '''sudo chmod 777 /opt/
@@ -42,7 +42,7 @@ node{
    sudo git clone https://github.com/shivastunts0327/vedikaUI-angular.git
    cd vedikaUI-angular
    sudo npm install
-   ng serve --host 0.0.0.0
+   ng serve --host 0.0.0.0'''
   }
 
 
