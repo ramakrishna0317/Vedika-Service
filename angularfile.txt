@@ -2,12 +2,7 @@ node{
    stage('SCM Checkout'){
        git credentialsId: 'git-creds', url: 'https://github.com/shivastunts0327/Service-java.git'
    }
-   stage('gradle Package'){
-     def gradleHome = tool name: 'gradle', type: 'gradle'
-     def gradleCMD = "${gradleHome}/bin/gradle"
-     sh "${gradleCMD} clean build"
-   } 
-   stage('ansible installing'){
+   
    sh label: '', script: '''#!/bin/bash
    echo this script done by shiva
    echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
@@ -26,9 +21,9 @@ node{
    sudo apt-get update -y
    sudo apt-get install ansible -y
    echo Ansible version
-   sudo ansible --version'''
-   }
-stage('angular file saving'){
+   sudo ansible --version
+   
+
    sh label: '', script: '''sudo chmod 777 /opt/
    cd /opt
    cat >angular.sh <<'EOF'
@@ -47,21 +42,21 @@ stage('angular file saving'){
    sudo git clone https://github.com/shivastunts0327/vedikaUI-angular.git
    cd vedikaUI-angular
    sudo npm install
-   ng serve --host 0.0.0.0'''
+   ng serve --host 0.0.0.0
   }
 
-stage('permissions to dir'){
+
    sh label: '', script: '''sudo chmod 777 /usr/
    sudo chmod 777 /usr/local/
    sudo chmod 777 /usr/local/bin/'''
-   }
+   
 
-stage('permissions to dir systemd init'){
+
     sh label: '', script: '''sudo chmod 777 /etc/systemd/
     sudo chmod 777 /etc/systemd/system'''
-   }
+   
 
-stage('Creating bash script to run angular'){   
+
      sh label: '', script: '''cd /usr/local/bin
      cat >vedikaui.sh <<'EOF'
 SERVICE_NAME=vedikaui
@@ -104,5 +99,7 @@ restart)
       echo "$SERVICE_NAME is not running ..."
      fi     ;;
  esac
+ 
  }
- }
+ 
+ 
