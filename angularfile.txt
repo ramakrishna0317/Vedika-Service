@@ -4,10 +4,7 @@ node{
    }
    
 stage('ansible installing'){
-   sh label: '', script: '''sudo chmod 777 /home
-   cd /home
-   cat >ansible.sh <<'EOF'
-   #!/bin/bash
+   sh label: '', script: '''#!/bin/bash
    echo this script done by shiva
    echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
    sudo apt install software-properties-common apt-transport-https -y
@@ -20,15 +17,13 @@ stage('ansible installing'){
    sudo apt-get update -y
    sudo apt-get upgrade -y
    echo Ansible PPA to your server
-   sudo apt-add-repository ppa:ansible/ansible ''
+   sudo apt-add-repository ppa:ansible/ansible \' \'
    echo update the repository and install Ansible
    sudo apt-get update -y
    sudo apt-get install ansible -y
    echo Ansible version
    sudo ansible --version'''
    }
-   sh label: '', script: '''cd /home
-   sudo sh ansible.sh'''
 
 stage('angular file saving'){
    sh label: '', script: '''sudo chmod 777 /opt/
