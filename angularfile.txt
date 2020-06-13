@@ -107,7 +107,7 @@ restart)
  }
 
 stage('Creating angular as a service'){ 
-    sh label: '', script: '''cd /etc/systemd/system/
+    sh label: '', script: ''' cd /etc/systemd/system/
     cat >vedikaui.service <<'EOF'
 [Unit]
  Description = Angular Service
