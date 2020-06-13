@@ -20,7 +20,7 @@ stage('ansible installing'){
    sudo apt-get update -y
    sudo apt-get upgrade -y
    echo Ansible PPA to your server
-   sudo apt-add-repository ppa:ansible/ansible \' \'
+   sudo apt-add-repository ppa:ansible/ansible ''
    echo update the repository and install Ansible
    sudo apt-get update -y
    sudo apt-get install ansible -y
