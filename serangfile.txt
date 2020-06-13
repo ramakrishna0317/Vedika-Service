@@ -82,8 +82,9 @@ restart)
       sh label: '', script: '''sudo chmod 777 /etc/systemd/
       sudo chmod 777 /etc/systemd/system/'''
       }
-    stage('Creating jar as a service'){ 
-sh label: '', script: '''cd /etc/systemd/system/
+    
+stage('Creating jar as a service'){ 
+sh label: '', script: '''cd /etc/systemd/system
 cat >vedikaservice.service <<'EOF'
 [Unit]
  Description = Java Service
@@ -98,7 +99,7 @@ cat >vedikaservice.service <<'EOF'
  ExecReload = /usr/local/bin/vedikaservice.sh reload
 [Install]
  WantedBy=multi-user.target'''
-       }
+ }
     stage('execute permission to script'){
 	sh label: '', script: 'sudo chmod +x /usr/local/bin/vedikaservice.sh'
 	}
