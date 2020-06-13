@@ -136,7 +136,7 @@ sudo echo "---
         src: /etc/systemd/system/vedikaui.service
         dest: /etc/systemd/system/
     -
-       shell: chmod +x /opt/angularui.sh
+       shell: chmod +x /opt/angular.sh
     -
        shell: chmod +x /usr/local/bin/vedikaui.sh
     -
