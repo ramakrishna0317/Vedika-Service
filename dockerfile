@@ -22,8 +22,6 @@ WORKDIR /home/ubuntu
 CMD sh "apt install default-jdk"
 CMD sh "chmod +x /usr/local/bin/vedikaservice.sh"
 CMD systemctl daemon-reload
-CMD systemctl enable vedikaservice
-CMD service vedikaservice start
 EXPOSE 8057
 '''
   }
@@ -101,20 +99,8 @@ cat >vedikaservice.service <<\'EOF\'
    }
    
    stage('Creating container'){
-  sh label: '', script: 'sudo docker run -id -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
+  sh label: '', script: 'sudo docker run -it -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
   }
-   
-   stage('starting container'){
-   sh label: '', script: 'sudo docker start jarcontainer '
-   }
-   
-   stage('attaching container'){
-   sh label: '', script: 'sudo docker attach jarcontainer '
-   }
-   
-   stage('entering container'){
-   sh label: '', script: 'sudo docker attach jarcontainer '
-   }
    
    stage('java creating'){
    sh label: '', script: '''apt-get update
