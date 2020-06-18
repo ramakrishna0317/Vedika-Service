@@ -95,23 +95,23 @@ sh label: '', script: '''cat >vedikaservice.service <<\'EOF\'
    }
    
    stage('Creating Image'){
-   sh label: '', script: 'docker build -t service.jar .'
+   sh label: '', script: 'sudo docker build -t service.jar .'
    }
    
    stage('Creating container'){
-  sh label: '', script: 'docker run -it -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
+  sh label: '', script: 'sudo docker run -it -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
   }
    
    stage('starting container'){
-   sh label: '', script: 'docker start jarcontainer '
+   sh label: '', script: 'sudo docker start jarcontainer '
    }
    
    stage('attaching container'){
-   sh label: '', script: 'docker attach jarcontainer '
+   sh label: '', script: 'sudo docker attach jarcontainer '
    }
    
    stage('entering container'){
-   sh label: '', script: 'docker attach jarcontainer '
+   sh label: '', script: 'sudo docker attach jarcontainer '
    }
    
    stage('java creating'){
