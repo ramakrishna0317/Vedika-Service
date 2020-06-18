@@ -99,7 +99,7 @@ cat >vedikaservice.service <<\'EOF\'
    }
    
    stage('Creating container'){
-  sh label: '', script: 'docker exec --tty -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
+  sh label: '', script: 'sudo docker -it -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
   }
    
    stage('java creating'){
