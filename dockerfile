@@ -30,54 +30,53 @@ EXPOSE 8057
 
    stage('Creating vedikaservice.sh'){
 sh label: '', script: '''cd /var/lib/jenkins/workspace/Docker.pipeline/build/libs
-'''
-sh label: '', script: '''cat >vedikaservice.sh <<\'EOF\'
-#!/bin/sh
-SERVICE_NAME=vedikaservice
+cat >vedikaservice.sh <<\'EOF\'
+#!/bin/sh 
+SERVICE_NAME=vedikaservice 
 PATH_TO_JAR=/home/ubuntu/functionhall-service-0.0.1-SNAPSHOT.jar
-PID_PATH_NAME=/tmp/vedikaservice-pid
-case $1 in
+PID_PATH_NAME=/tmp/vedikaservice-pid 
+case $1 in 
 start)
        echo "Starting $SERVICE_NAME ..."
-  if [ ! -f $PID_PATH_NAME ]; then
-       nohup java -jar $PATH_TO_JAR /tmp 2>> /dev/null >>/dev/null &
-                   echo $! > $PID_PATH_NAME
-       echo "$SERVICE_NAME started ..."
-  else
+  if [ ! -f $PID_PATH_NAME ]; then 
+       nohup java -jar $PATH_TO_JAR /tmp 2>> /dev/null >>/dev/null &      
+                   echo $! > $PID_PATH_NAME  
+       echo "$SERVICE_NAME started ..."         
+  else 
        echo "$SERVICE_NAME is already running ..."
   fi
 ;;
 stop)
   if [ -f $PID_PATH_NAME ]; then
          PID=$(cat $PID_PATH_NAME);
-         echo "$SERVICE_NAME stoping ..."
-         kill $PID;
-         echo "$SERVICE_NAME stopped ..."
-         rm $PID_PATH_NAME
-  else
-         echo "$SERVICE_NAME is not running ..."
-  fi
-;;
-restart)
-  if [ -f $PID_PATH_NAME ]; then
-      PID=$(cat $PID_PATH_NAME);
-      echo "$SERVICE_NAME stopping ...";
-      kill $PID;
-      echo "$SERVICE_NAME stopped ...";
-      rm $PID_PATH_NAME
-      echo "$SERVICE_NAME starting ..."
-      nohup java -jar $PATH_TO_JAR /tmp 2>> /dev/null >> /dev/null &
-      echo $! > $PID_PATH_NAME
-      echo "$SERVICE_NAME started ..."
-  else
-      echo "$SERVICE_NAME is not running ..."
+         echo "$SERVICE_NAME stoping ..." 
+         kill $PID;         
+         echo "$SERVICE_NAME stopped ..." 
+         rm $PID_PATH_NAME       
+  else          
+         echo "$SERVICE_NAME is not running ..."   
+  fi    
+;;    
+restart)  
+  if [ -f $PID_PATH_NAME ]; then 
+      PID=$(cat $PID_PATH_NAME);    
+      echo "$SERVICE_NAME stopping ..."; 
+      kill $PID;           
+      echo "$SERVICE_NAME stopped ...";  
+      rm $PID_PATH_NAME     
+      echo "$SERVICE_NAME starting ..."  
+      nohup java -jar $PATH_TO_JAR /tmp 2>> /dev/null >> /dev/null &            
+      echo $! > $PID_PATH_NAME  
+      echo "$SERVICE_NAME started ..."    
+  else           
+      echo "$SERVICE_NAME is not running ..."    
      fi     ;;
- esac
-'''
+ esac'''
     }
 	
 	stage('Creating vedikaservice.service'){
-sh label: '', script: '''cat >vedikaservice.service <<\'EOF\'
+sh label: '', script: '''cd /var/lib/jenkins/workspace/Docker.pipeline/build/libs
+cat >vedikaservice.service <<\'EOF\'
 [Unit]
  Description = Java Service
  After network.target = vedikaservice.service
@@ -85,13 +84,12 @@ sh label: '', script: '''cat >vedikaservice.service <<\'EOF\'
  Type = forking
  Restart=always
  RestartSec=1
- SuccessExitStatus=143
+ SuccessExitStatus=143 
  ExecStart = /usr/local/bin/vedikaservice.sh start
  ExecStop = /usr/local/bin/vedikaservice.sh stop
-#ExecReload = /usr/local/bin/vedikaservice.sh reload
+ ExecReload = /usr/local/bin/vedikaservice.sh reload
 [Install]
- WantedBy=multi-user.target
-'''
+ WantedBy=multi-user.target'''
    }
    
    stage('Back to workspace'){
