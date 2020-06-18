@@ -94,6 +94,10 @@ sh label: '', script: '''cat >vedikaservice.service <<\'EOF\'
 '''
    }
    
+   stage('Back to workspace'){
+   sh label: '', script: 'cd /var/lib/jenkins/workspace/Docker.pipeline'
+   }
+   
    stage('Creating Image'){
    sh label: '', script: 'sudo docker build -t service.jar .'
    }
