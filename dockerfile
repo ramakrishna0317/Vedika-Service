@@ -15,13 +15,19 @@ sh label: '', script: '''cd /var/lib/jenkins/workspace/Docker.pipeline
 sh label: '', script: '''cat >Dockerfile <<\'EOF\'
 FROM ubuntu
 COPY ./build/libs/functionhall-service-0.0.1-SNAPSHOT.jar /home/ubuntu/
-CMD sh "apt-get update"
+RUN sh "apt-get update"
 COPY ./build/libs/vedikaservice.sh /usr/local/bin/
 COPY  ./build/libs/vedikaservice.service /etc/systemd/system/
 WORKDIR /home/ubuntu
-CMD sh "apt install default-jdk"
-CMD sh "chmod +x /usr/local/bin/vedikaservice.sh"
-CMD systemctl daemon-reload
+RUN apt install software-properties-common apt-transport-https -y
+RUN add-apt-repository ppa:openjdk-r/ppa -y
+RUN apt install openjdk-8-jdk -y
+RUN chmod +x /usr/local/bin/vedikaservice.sh
+RUN apt-get install systemd ''
+RUN apt-get install systemctl ''
+RUN systemctl daemon-reload
+RUN systemctl enable vedikaservice.service
+RUN service start vedikaservice
 EXPOSE 8057
 '''
   }
@@ -103,7 +109,7 @@ cat >vedikaservice.service <<\'EOF\'
    }
    
    stage('Creating container'){
-  sh label: '', script: 'sudo docker exec -it -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
+  sh label: '', script: 'sudo docker run -it -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
   }
    
    stage('java creating'){
