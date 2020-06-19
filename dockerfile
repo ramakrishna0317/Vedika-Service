@@ -118,3 +118,5 @@ cat >vedikaservice.service <<\'EOF\'
    sh label: '', script: '''cd /usr/local/bin
    sh vedikaservice.sh start'''
    }
+   
+   }
