@@ -15,7 +15,7 @@ node{
      sh label: '', script: '''cat >Dockerfile <<\'EOF\'
      FROM ubuntu
      COPY ./build/libs/functionhall-service-0.0.1-SNAPSHOT.jar /home/ubuntu/
-     RUN sh "apt-get update"
+     RUN apt-get update
      COPY ./build/libs/vedikaservice.sh /usr/local/bin/
      COPY  ./build/libs/vedikaservice.service /etc/systemd/system/
      WORKDIR /home/ubuntu
