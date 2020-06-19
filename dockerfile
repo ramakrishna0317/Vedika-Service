@@ -9,13 +9,7 @@ node{
      sh "${gradleCMD} clean build"
    } 
    
-   stage('gradle Package'){
-     sh label: '', script: '''sudo docker rmi -f $(docker images -q)
-     sudo docker stop $(docker ps -a -q
-     sudo docker rm $(docker ps -a -q)'''
-   }
-    
-   stage('Creating Dockerfile'){
+     stage('Creating Dockerfile'){
      sh label: '', script: '''cd /var/lib/jenkins/workspace/Docker.pipeline
      '''
      sh label: '', script: '''cat >Dockerfile <<\'EOF\'
