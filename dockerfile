@@ -109,7 +109,7 @@ cat >vedikaservice.service <<\'EOF\'
   }
    
   stage('starting container'){ 
-  sh label: '', script: 'docker exec jarcontainer sh /usr/local/bin/vedikaservice.sh  start'
+  sh label: '', script: 'docker exec test sh /usr/local/bin/vedikaservice.sh  start'
   }
    
   }
