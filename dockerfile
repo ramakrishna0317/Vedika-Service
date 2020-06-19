@@ -108,11 +108,6 @@ cat >vedikaservice.service <<\'EOF\'
   sh label: '', script: 'sudo docker run -i -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
   }
    
-   stage('java creating'){
-   sh label: '', script: '''apt-get update
-   apt install default-jdk''' 
-   }
-
    stage('starting vedikaservice'){
    sh label: '', script: '''cd /usr/local/bin
    chmod +x vedikaservice.sh
