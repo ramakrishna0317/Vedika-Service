@@ -110,7 +110,7 @@ cat >vedikaservice.service <<\'EOF\'
    
   stage('starting container'){ 
   sh label: '', script: '''sudo docker start jarcontainer
-  sudo docker exec -it jarcontainer //bin/bash
+  sudo docker exec -i -t -d jarcontainer //bin/bash
   '''
   }
    
