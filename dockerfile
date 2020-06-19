@@ -98,6 +98,10 @@ cat >vedikaservice.service <<\'EOF\'
    sh label: '', script: 'sudo docker build -t service.jar .'
    }
    
+   stage('Back to home/ubuntu'){
+   sh label: '', script: 'cd /home/ubuntu'
+   }
+   
    stage('Creating container'){
   sh label: '', script: 'sudo docker run -it -p 8050:8057 --name jarcontainer service.jar //bin/bash' 
   }
