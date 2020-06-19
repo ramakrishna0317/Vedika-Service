@@ -24,9 +24,6 @@ node{
      RUN apt install openjdk-8-jdk -y
      RUN chmod +x /usr/local/bin/vedikaservice.sh
      RUN apt-get install systemd ''
-     RUN systemctl daemon-reload
-     RUN systemctl enable vedikaservice.service
-     RUN service start vedikaservice
      EXPOSE 8057
      '''
   }
