@@ -131,14 +131,13 @@ cat >vedikaservice.service <<\'EOF\'
    }
   
   stage('creating a dir'){
-   sh label: '', script: '''sudo mkdir /opt/scripts'''
+   sh label: '', script: '''sudo mkdir /opt/'''
   }
    
    stage('creating Docker.sh'){
    sh label: '', script: '''
    sudo chmod 777 /opt
-   sudo chmod 777 /opt/scripts
-   cd /opt/scripts
+  cd /opt/
 cat >docker.sh <<\'EOF\'
 sudo apt update -y
 sudo apt upgrade -y
@@ -180,7 +179,7 @@ sudo apt install docker-ce -y'''
    }
    
    stage('creating playbook'){
-   sh label: '', script: '''cd /opt/scripts
+   sh label: '', script: '''cd /opt/
 sudo echo "---
 -
   hosts: all
@@ -191,7 +190,7 @@ sudo echo "---
         dest: /home/ubuntu/
     -
       copy:
-        src:  /opt/scripts/docker.sh
+        src:  /opt/docker.sh
         dest: /home/ubuntu/
     -
        shell: sudo chmod +x /home/ubuntu/docker.sh
@@ -206,7 +205,7 @@ sudo echo "---
   }
       
       stage('execution playbook'){
-       sh label: '', script: 'cd /opt/scripts'
+       sh label: '', script: 'cd /opt/'
        }
        
        stage('execution playbook'){
