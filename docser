@@ -126,6 +126,12 @@ cat >vedikaservice.service <<\'EOF\'
    sh label: '', script: 'sudo docker save -o /home/ubuntu/vedikaservice.tar vedikaservice'
    }
    
+   stage('permissions home/ubuntu'){
+   sh label: '', script: '''sudo chmod 777 /home/
+   sudo chmod 777 /home/ubuntu
+   '''
+   }
+   
    stage('Back to home/ubuntu'){
    sh label: '', script: '''cd /home/ubuntu
 sudo echo "---
