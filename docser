@@ -169,19 +169,14 @@ sudo apt install docker-ce -y'''
    '''
    }
    
-   stage('removing hosts'){
-   sh label: '', script: '''sudo rm -Rf /etc/ansible/hosts
-   '''
-   }
-   
    stage('permissions ansible dir'){
-   sh label: '', script: '''sudo chmod 777 /etc/ansible
+   sh label: '', script: '''sudo chmod 777 /etc/ansible/
    '''
    }
    
    stage('adding ansible hosts'){
    sh label: '', script: '''cd /etc/ansible
-   cat >hosts <<\'EOF\'
+   cat >>hosts <<\'EOF\'
    13.234.59.198
    '''
    }
