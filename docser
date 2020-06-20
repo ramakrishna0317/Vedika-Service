@@ -201,12 +201,8 @@ sudo echo "---
   }
       
       stage('execution playbook'){
-       sh label: '', script: 'cd /opt/'
+       sh label: '', script: '''cd /opt/
+       sudo ansible-playbook vedikaservice.yaml'''
        }
-       
-       stage('execution playbook'){
-       sh label: '', script: ' sudo ansible-playbook vedikaservice.yaml'   
-  }
-  
-  }
-  
+}       
+
