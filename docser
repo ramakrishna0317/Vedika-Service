@@ -202,7 +202,7 @@ sudo echo "---
         src:  /home/ubuntu/docker.sh
         dest: /home/ubuntu/
     -
-       shell: chmod +x /home/ubuntu/docker.sh
+       shell: sudo chmod +x /home/ubuntu/docker.sh
     -
        shell: sudo sh /home/ubuntu/docker.sh
     -
@@ -210,10 +210,10 @@ sudo echo "---
     -
        shell: sudo docker run -i -t -d -p 8020:8057 --name vedikaservice.container vedikaservice //bin/bash
     -
-       shell: docker exec vedikaservice.container sh /usr/local/bin/vedikaservice.sh  start" > vedikaservice.yaml'''
+       shell: sudo docker exec vedikaservice.container sh /usr/local/bin/vedikaservice.sh  start" > vedikaservice.yaml'''
   }
        stage('execution playbook'){
-       sh label: '', script: 'ansible-playbook vedikaservice.yaml'   
+       sh label: '', script: ' sudo ansible-playbook vedikaservice.yaml'   
   }
   
   }
