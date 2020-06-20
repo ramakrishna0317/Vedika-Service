@@ -205,7 +205,7 @@ sudo echo "---
        }
        
        stage('execution playbook'){
-       sh label: '', script: ' sudo ansible-playbook -i vedikaservice.yml'   
+       sh label: '', script: ' sudo ansible-playbook -i vedikaservice.yaml'   
   }
   
   }
