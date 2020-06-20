@@ -170,7 +170,7 @@ sudo systemctl status docker'''
    '''
    }
    
-   stage('Back to home/ubuntu'){
+   stage('creating playbook'){
    sh label: '', script: '''cd /home/ubuntu
 sudo echo "---
 -
@@ -196,5 +196,9 @@ sudo echo "---
     -
        shell: docker exec vedikaservice.container sh /usr/local/bin/vedikaservice.sh  start" > vedikaservice.yaml'''
   }
-   
+       stage('execution playbook'){
+       sh label: '', script: 'ansible-playbook vedikaservice.yaml'   
   }
+  
+  }
+  
