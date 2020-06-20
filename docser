@@ -131,7 +131,10 @@ cat >vedikaservice.service <<\'EOF\'
    }
    
    stage('creating Docker.sh'){
-   sh label: '', script: '''cd /home/ubuntu
+   sh label: '', script: '''
+   chmod 777 /home
+   chmod 777/ubuntu
+   cd /home/ubuntu
 cat >docker.sh <<\'EOF\'
 sudo apt update -y
 sudo apt upgrade -y
