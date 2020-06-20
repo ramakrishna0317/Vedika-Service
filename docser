@@ -156,6 +156,10 @@ sudo systemctl status docker'''
    '''
    }
    
+   stage('permissions ansible dir'){
+   sh label: '', script: '''sudo chmod 777 /etc/
+   sudo chmod 777 /etc/ansible
+   '''
    stage('adding ansible hosts'){
    sh label: '', script: '''cd /etc/ansible
    cat >hosts <<\'EOF\'
