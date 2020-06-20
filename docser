@@ -174,7 +174,6 @@ sudo echo "---
 -
   hosts: all
   tasks:
-    
     -
       copy:
         src:  /home/ubuntu/vedikaservice.tar
