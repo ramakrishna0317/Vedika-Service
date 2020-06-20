@@ -130,11 +130,7 @@ cat >vedikaservice.service <<\'EOF\'
    sudo ansible --version'''
    }
   
-  stage('creating a dir'){
-   sh label: '', script: '''sudo mkdir /opt/'''
-  }
-   
-   stage('creating Docker.sh'){
+  stage('creating Docker.sh'){
    sh label: '', script: '''
    sudo chmod 777 /opt
   cd /opt/
