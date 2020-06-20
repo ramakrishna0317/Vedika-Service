@@ -176,7 +176,7 @@ sudo apt install docker-ce -y'''
    
    stage('adding ansible hosts'){
    sh label: '', script: '''cd /etc/ansible
-   cat >>hosts <<\'EOF\'
+   cat >inventory <<\'EOF\'
    13.234.59.198
    '''
    }
@@ -207,7 +207,7 @@ sudo echo "---
        shell: sudo docker exec vedikaservice.container sh /usr/local/bin/vedikaservice.sh  start" > vedikaservice.yaml'''
   }
        stage('execution playbook'){
-       sh label: '', script: ' sudo ansible-playbook vedikaservice.yaml'   
+       sh label: '', script: ' sudo ansible-playbook -i vedikaservice.yaml'   
   }
   
   }
