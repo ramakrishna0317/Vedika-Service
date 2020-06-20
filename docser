@@ -204,7 +204,7 @@ sudo echo "---
     -
        shell: chmod +x /home/ubuntu/docker.sh
     -
-       shell: sh /home/ubuntu/docker.sh
+       shell: sudo sh /home/ubuntu/docker.sh
     -
        shell: sudo docker load -i /home/ubuntu/vedikaservice.tar
     -
