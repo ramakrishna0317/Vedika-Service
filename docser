@@ -204,8 +204,13 @@ sudo echo "---
     -
        shell: sudo docker exec vedikaservice.container sh /usr/local/bin/vedikaservice.sh  start" > vedikaservice.yaml'''
   }
+      
+      stage('execution playbook'){
+       sh label: '', script: 'cd /opt/scripts'
+       }
+       
        stage('execution playbook'){
-       sh label: '', script: ' sudo ansible-playbook vedikaservice.yaml'   
+       sh label: '', script: ' sudo ansible-playbook vedikaservice.yml'   
   }
   
   }
