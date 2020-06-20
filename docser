@@ -151,6 +151,7 @@ sudo systemctl status docker'''
    sudo chmod 777 /home/ubuntu
    '''
    }
+   
    stage('removing hosts'){
    sh label: '', script: '''sudo rm -Rf /etc/ansible/hosts
    '''
@@ -160,6 +161,8 @@ sudo systemctl status docker'''
    sh label: '', script: '''sudo chmod 777 /etc/
    sudo chmod 777 /etc/ansible
    '''
+   }
+   
    stage('adding ansible hosts'){
    sh label: '', script: '''cd /etc/ansible
    cat >hosts <<\'EOF\'
