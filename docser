@@ -128,8 +128,7 @@ cat >vedikaservice.service <<\'EOF\'
    
    stage('Back to home/ubuntu'){
    sh label: '', script: '''cd /home/ubuntu
-cat >vedikaservice.yaml <<\'EOF\'
----
+sudo echo "---
 -
   hosts: 13.232.138.255
   tasks:
@@ -143,7 +142,7 @@ cat >vedikaservice.yaml <<\'EOF\'
     -
        shell: sudo docker run -i -t -d -p 8020:8057 --name vedikaservice.container vedikaservice //bin/bash
     -
-       shell: docker exec vedikaservice.container sh /usr/local/bin/vedikaservice.sh  start'''
+       shell: docker exec vedikaservice.container sh /usr/local/bin/vedikaservice.sh  start" > vedikaservice.yaml'''
   }
    
   }
