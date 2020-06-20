@@ -178,7 +178,7 @@ sudo apt install docker-ce -y'''
    sh label: '', script: '''cd /opt/
 sudo echo "---
 -
-  hosts: all
+  hosts: 13.234.59.198
   tasks:
     -
       copy:
@@ -205,7 +205,7 @@ sudo echo "---
        }
        
        stage('execution playbook'){
-       sh label: '', script: ' sudo ansible-playbook -i vedikaservice.yaml'   
+       sh label: '', script: ' sudo ansible-playbook vedikaservice.yaml'   
   }
   
   }
