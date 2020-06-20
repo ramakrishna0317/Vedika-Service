@@ -117,21 +117,19 @@ cat >vedikaservice.service <<\'EOF\'
    stage('creating Docker.sh'){
    sh label: '', script: '''cd /home/ubuntu
 cat >docker.sh <<\'EOF\'
-sudo apt update
-sudo apt upgrade
+sudo apt update -y
+sudo apt upgrade -y
 echo Install Prerequisite Packages
-sudo apt-get install curl apt-transport-https ca-certificates software-properties-common
+sudo apt-get install curl apt-transport-https ca-certificates software-properties-common -y
 echo Add the Docker Repositories
 echo we add the GPG key, by entering the following command in the command line:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - -y
 echo Next, we add the repository:
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" -y
 echo just update the repository information:
-sudo apt update
+sudo apt update -y
 echo Install Docker on Ubuntu 18.04
-sudo apt install docker-ce
-echo Check Docker Status
-sudo systemctl status docker'''
+sudo apt install docker-ce -y'''
    }
    
    stage('Back to workspace'){
