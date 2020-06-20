@@ -31,7 +31,7 @@ sudo apt install docker-ce -y'''
      sh label: '', script: '''cat >Dockerfile <<\'EOF\'
      FROM ubuntu
      COPY ./build/libs/functionhall-service-0.0.1-SNAPSHOT.jar /home/ubuntu/
-     RUN apt-get update
+     RUN apt-get update -y
      COPY ./build/libs/vedikaservice.sh /usr/local/bin/
      COPY  ./build/libs/vedikaservice.service /etc/systemd/system/
      WORKDIR /home/ubuntu
@@ -129,12 +129,16 @@ cat >vedikaservice.service <<\'EOF\'
    echo Ansible version
    sudo ansible --version'''
    }
+  
+  stage('creating a dir'){
+   sh label: '', script: '''sudo mkdir /opt/scripts'''
+  }
    
    stage('creating Docker.sh'){
    sh label: '', script: '''
-   sudo chmod 777 /home
-   sudo chmod 777 /home/ubuntu
-   cd /home/ubuntu
+   sudo chmod 777 /opt
+   sudo chmod 777 /opt/scripts
+   cd /opt/scripts
 cat >docker.sh <<\'EOF\'
 sudo apt update -y
 sudo apt upgrade -y
@@ -162,13 +166,7 @@ sudo apt install docker-ce -y'''
    stage('converting Image'){
    sh label: '', script: 'sudo docker save -o /home/ubuntu/vedikaservice.tar vedikaservice'
    }
-   
-   stage('permissions home/ubuntu'){
-   sh label: '', script: '''sudo chmod 777 /home/
-   sudo chmod 777 /home/ubuntu
-   '''
-   }
-   
+  
    stage('permissions ansible dir'){
    sh label: '', script: '''sudo chmod 777 /etc/ansible/
    '''
@@ -176,13 +174,13 @@ sudo apt install docker-ce -y'''
    
    stage('adding ansible hosts'){
    sh label: '', script: '''cd /etc/ansible
-   cat >inventory <<\'EOF\'
+   cat >>hosts <<\'EOF\'
    13.234.59.198
    '''
    }
    
    stage('creating playbook'){
-   sh label: '', script: '''cd /home/ubuntu
+   sh label: '', script: '''cd /opt/scripts
 sudo echo "---
 -
   hosts: all
@@ -193,7 +191,7 @@ sudo echo "---
         dest: /home/ubuntu/
     -
       copy:
-        src:  /home/ubuntu/docker.sh
+        src:  /opt/scripts/docker.sh
         dest: /home/ubuntu/
     -
        shell: sudo chmod +x /home/ubuntu/docker.sh
@@ -207,7 +205,7 @@ sudo echo "---
        shell: sudo docker exec vedikaservice.container sh /usr/local/bin/vedikaservice.sh  start" > vedikaservice.yaml'''
   }
        stage('execution playbook'){
-       sh label: '', script: ' sudo ansible-playbook -i vedikaservice.yaml'   
+       sh label: '', script: ' sudo ansible-playbook vedikaservice.yaml'   
   }
   
   }
