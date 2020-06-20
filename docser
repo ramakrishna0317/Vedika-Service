@@ -134,11 +134,10 @@ cat >vedikaservice.yaml <<\'EOF\'
   hosts: 13.232.138.255
   tasks:
     
-	-
+    -
       copy:
         src:  /home/ubuntu/vedikaservice.tar
         dest: /home/ubuntu/
-    
     -
        shell: sudo docker load -i /home/ubuntu/vedikaservice.tar
     -
