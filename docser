@@ -139,7 +139,7 @@ echo Install Prerequisite Packages
 sudo apt-get install curl apt-transport-https ca-certificates software-properties-common -y
 echo Add the Docker Repositories
 echo we add the GPG key, by entering the following command in the command line:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - -y
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 echo Next, we add the repository:
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" -y
 echo just update the repository information:
