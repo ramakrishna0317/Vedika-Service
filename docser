@@ -114,6 +114,26 @@ cat >vedikaservice.service <<\'EOF\'
    sudo ansible --version'''
    }
    
+   stage('creating Docker.sh'){
+   sh label: '', script: '''cd /home/ubuntu
+cat >docker.sh <<\'EOF\'
+sudo apt update
+sudo apt upgrade
+echo Install Prerequisite Packages
+sudo apt-get install curl apt-transport-https ca-certificates software-properties-common
+echo Add the Docker Repositories
+echo we add the GPG key, by entering the following command in the command line:
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+echo Next, we add the repository:
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+echo just update the repository information:
+sudo apt update
+echo Install Docker on Ubuntu 18.04
+sudo apt install docker-ce
+echo Check Docker Status
+sudo systemctl status docker'''
+   }
+   
    stage('Back to workspace'){
    sh label: '', script: 'cd /var/lib/jenkins/workspace/Docker.pipeline'
    }
@@ -131,18 +151,37 @@ cat >vedikaservice.service <<\'EOF\'
    sudo chmod 777 /home/ubuntu
    '''
    }
+   stage('removing hosts'){
+   sh label: '', script: '''sudo rm -Rf /etc/ansible/hosts
+   '''
+   }
+   
+   stage('adding ansible hosts'){
+   sh label: '', script: '''cd /etc/ansible
+   cat >hosts <<\'EOF\'
+   13.232.138.255
+   '''
+   }
    
    stage('Back to home/ubuntu'){
    sh label: '', script: '''cd /home/ubuntu
 sudo echo "---
 -
-  hosts: 13.232.138.255
+  hosts: all
   tasks:
     
     -
       copy:
         src:  /home/ubuntu/vedikaservice.tar
         dest: /home/ubuntu/
+    -
+      copy:
+        src:  /home/ubuntu/docker.sh
+        dest: /home/ubuntu/
+    -
+       shell: chmod +x /home/ubuntu/docker.sh
+    -
+       shell: sh /home/ubuntu/docker.sh
     -
        shell: sudo docker load -i /home/ubuntu/vedikaservice.tar
     -
