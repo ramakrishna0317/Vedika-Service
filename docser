@@ -166,10 +166,20 @@ sudo apt install docker-ce -y'''
    sh label: '', script: '''sudo chmod 777 /etc/ansible/
    '''
    }
+   stage('permissions ansible dir'){
+   sh label: '', script: '''sudo chmod 777 /etc/ansible/hosts
+   '''
+   }
+   
+   stage('permissions ansible dir'){
+   sh label: '', script: '''sudo mv /etc/ansible/hosts /opt
+   '''
+   }
    
    stage('adding ansible hosts'){
    sh label: '', script: '''cd /etc/ansible
-   cat >inventory <<\'EOF\'
+   cat >hosts <<\'EOF\'
+   [hosts]
    52.66.204.33
    '''
    }
@@ -183,9 +193,7 @@ sudo echo "---
     vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:  
-   
-    -
-      debug: var=ansible_host
+  
     -
       copy:
         src:  /home/ubuntu/vedikaservice.tar
