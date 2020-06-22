@@ -170,7 +170,7 @@ sudo apt install docker-ce -y'''
    stage('adding ansible hosts'){
    sh label: '', script: '''cd /etc/ansible
    cat >inventory <<\'EOF\'
-   13.234.59.198
+   52.66.204.33
    '''
    }
    
@@ -178,8 +178,14 @@ sudo apt install docker-ce -y'''
    sh label: '', script: '''cd /opt/
 sudo echo "---
 -
-  hosts: 13.234.59.198
+  hosts: 52.66.204.33
   tasks:
+    vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:  
+   
+    -
+      debug: var=ansible_host
     -
       copy:
         src:  /home/ubuntu/vedikaservice.tar
