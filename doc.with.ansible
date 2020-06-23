@@ -25,6 +25,28 @@ echo Install Docker on Ubuntu 18.04
 sudo apt install docker-ce -y'''
    }
  
+   stage('ansible installing'){
+   sh label: '', script: '''#!/bin/bash
+   echo this script done by shiva
+   echo Installing software-properties-common packages, then add the java OpenJDK PPA repository.
+   sudo apt install software-properties-common apt-transport-https -y
+   sudo add-apt-repository ppa:openjdk-r/ppa -y
+   Now installing the Java 8 using apt command.
+   sudo apt install openjdk-8-jdk -y
+   echo java version installed on the system.
+   java -version
+   echo updating and upgrading the version
+   sudo apt-get update -y
+   sudo apt-get upgrade -y
+   echo Ansible PPA to your server
+   sudo apt-add-repository ppa:ansible/ansible \' \'
+   echo update the repository and install Ansible
+   sudo apt-get update -y
+   sudo apt-get install ansible -y
+   echo Ansible version
+   sudo ansible --version'''
+   }
+   
  stage('installing Docker'){
    sh label: '', script: '''cd /opt
 cat >docker.sh <<\'EOF\'
@@ -62,8 +84,30 @@ ENTRYPOINT ["java", "-jar", "functionhall-service-0.0.1-SNAPSHOT.jar"]'''
    }
  
  
-   stage('creating playbook'){
-   sh label: '', script: '''cd /opt/
+  stage('permissions ansible dir'){
+   sh label: '', script: '''sudo chmod 777 /etc/ansible/
+   '''
+   }
+   stage('permissions ansible dir'){
+   sh label: '', script: '''sudo chmod 777 /etc/ansible/hosts
+   '''
+   }
+   
+   stage('permissions ansible dir'){
+   sh label: '', script: '''sudo mv /etc/ansible/hosts /opt
+   '''
+   }
+   
+   stage('adding ansible hosts'){
+   sh label: '', script: '''cd /etc/ansible
+   cat >hosts <<\'EOF\'
+   [hosts]
+   52.66.204.33
+   '''
+   }
+ 
+ stage('creating playbook'){
+ sh label: '', script: '''cd /opt/
 sudo echo "---
 -
   hosts: 52.66.204.33
