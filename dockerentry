@@ -10,7 +10,7 @@ node{
    } 
    
      stage('Creating Dockerfile'){
-     sh label: '', script: '''cd /var/lib/jenkins/workspace/Docker.pipeline
+     sh label: '', script: '''cd /var/lib/jenkins/workspace/Docker.pipeline'''
      sh label: '', script: '''cat >Dockerfile <<\'EOF\'
      FROM ubuntu
      COPY ./build/libs/functionhall-service-0.0.1-SNAPSHOT.jar /home/ubuntu/
