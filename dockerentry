@@ -23,11 +23,10 @@ node{
      RUN apt install openjdk-8-jdk -y
      RUN chmod +x /usr/local/bin/vedikaservice.sh
      RUN apt-get install systemd 
-	 RUN sh /usr/local/bin/vedikaservice.sh start
+     RUN sh /usr/local/bin/vedikaservice.sh start
      ENTRYPOINT ["vedikaservice.sh start"]
-     CMD ["sh"]''
-     EXPOSE 8057
-     '''
+     CMD ["sh"]
+     EXPOSE 8057'''
   }
 
    stage('Creating vedikaservice.sh'){
